@@ -1,4 +1,12 @@
-﻿<UserControl x:Class="UniversityRegistry.UI.RegistryControl"
+﻿<!--
+    Author: Nathan Bean.
+    Edited By: William Raymann.
+    Class: RegistryControl.xaml.
+    Purpose: To allow the user to view people in the University, to allow the
+             user to add people to the University, and to allow the user to edit
+             people in the University.
+    -->
+<UserControl x:Class="UniversityRegistry.UI.RegistryControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +19,7 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <local:PersonList Grid.Column="0"/>
-        <local:PersonControl Grid.Column="1"/>
+        <local:PersonList Grid.Column="0" ListChanged="OnSelectionChanged"/>
+        <local:PersonControl x:Name="pcDetails" Grid.Column="1"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Author: Nathan Bean
+ * Edited By: William Rayman.
+ * Class: RegistryControl.
+ * Purpose: To display all current people in the University, to allow the user to 
+ *          add new people, and to allow the user to modify current people in the 
+ *          University.
+ */
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UniversityRegistry.Data;
+using System.Collections.ObjectModel;
 
 namespace UniversityRegistry.UI
 {
@@ -24,7 +33,7 @@ namespace UniversityRegistry.UI
             InitializeComponent();
 
             // Initializes the list of university people
-            var people = new List<Person>()
+            var people = new ObservableCollection<Person>()
             {
                 new Person(){FirstName="Mother", LastName="Goose", DateOfBirth=new DateTime(1843, 10, 20), Role=Role.Faculty, Active=false},
                 new Person(){FirstName="Peter", LastName="Pumpkineater", DateOfBirth=new DateTime(1966, 3, 15), Role=Role.Faculty, Active=true},
@@ -38,6 +47,27 @@ namespace UniversityRegistry.UI
                 new Person(){FirstName="Dora", LastName="Explorer", DateOfBirth=new DateTime(1999, 6, 12), Role=Role.UndergraduateStudent, Active=true},
                 new Person(){FirstName="Caillou", LastName="Pine", DateOfBirth=new DateTime(1997, 9, 15), Role=Role.UndergraduateStudent, Active=true}
             };
+
+            // Make people the DataContext of the current ReistryControl.
+            DataContext = people;
+        }
+
+        /// <summary>
+        /// Sets the DataContext of pcDetails (the PersonControl) to the 
+        /// item selected from the calling ListView of people.
+        /// </summary>
+        /// <param name="sender">The current list of people.</param>
+        /// <param name="e">Information about the current list of people.</param>
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(e.AddedItems.Count == 0)
+            {
+                pcDetails.DataContext = null;
+            }
+            else
+            {
+                pcDetails.DataContext = e.AddedItems[0];
+            }
         }
     }
 }
